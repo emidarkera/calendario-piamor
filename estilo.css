@@ -1,6 +1,106 @@
-body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #ffe4e1; margin: 0; }
-.container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 300px; text-align: center; }
-.dias-semana, .dias-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-top: 10px; }
-.dia { padding: 10px; cursor: pointer; border-radius: 5px; transition: 0.2s; }
-.dia:hover { background-color: #ff69b4; color: white; }
-.hoy { background-color: #ff1493; color: white; font-weight: bold; }
+body {
+    font-family: 'Roboto', sans-serif;
+    /* Fondo general color crema suave */
+    background-color: #fdf5e6; 
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    color: #4e342e; /* Texto café oscuro */
+}
+
+.calendar-container {
+    width: 90%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(93, 64, 55, 0.15); /* Sombra café suave */
+    padding: 20px;
+}
+
+header h2 {
+    /* Título color Ladrillo/Terracota */
+    color: #bf360c; 
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    color: #8d6e63; /* Café medio */
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.grid-calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* Bordes color arena/café claro */
+    border-top: 1px solid #d7ccc8;
+    border-left: 1px solid #d7ccc8;
+}
+
+.celda-dia {
+    min-height: 100px;
+    border-right: 1px solid #d7ccc8;
+    border-bottom: 1px solid #d7ccc8;
+    padding: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.celda-dia:hover {
+    /* Al pasar el mouse: Naranja muy pálido */
+    background-color: #ffe0b2; 
+}
+
+.numero-dia {
+    font-size: 14px;
+    color: #5d4037;
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.hoy .numero-dia {
+    /* El día de hoy: Naranja Calabaza intenso */
+    background-color: #e65100; 
+    color: white;
+    font-weight: bold;
+}
+
+/* Estilo de la Tarea */
+.tarea {
+    /* Tarea pendiente: Café Cálido */
+    background-color: #795548; 
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+    margin-top: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-left: 3px solid #3e2723; /* Borde lateral más oscuro */
+}
+
+/* Tarea tachada */
+.tarea.completada {
+    /* Tarea lista: Beige grisáceo */
+    background-color: #d7ccc8;
+    color: #8d6e63;
+    text-decoration: line-through;
+    opacity: 0.8;
+    border-left: 3px solid #bcaaa4;
+}
