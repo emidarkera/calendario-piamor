@@ -4,6 +4,37 @@ const fecha = new Date();
 
 const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
+// =========================================================================
+// TUS TAREAS (Copiadas de la foto)
+// =========================================================================
+const tareasPredeterminadas = {
+    9: [
+        "Practico 3"
+    ],
+    10: [
+        "PEP 1 Obstetricia"
+    ],
+    11: [
+        "Control Seminario Fisiopatología",
+        "MiniPEP 2.1",
+        "Presentacion Seminario"
+    ],
+    16: [
+        "Practico 4"
+    ],
+    18: [
+        "MiniPEP 2.2"
+    ],
+    22: [
+        "Control Farmacología"
+    ],
+    23: [
+        "PEP 2 Embriología",
+        "Practico 5"
+    ]
+};
+// =========================================================================
+
 // Poner Título
 mesAnio.innerText = `${nombresMeses[fecha.getMonth()]} ${fecha.getFullYear()}`;
 
@@ -15,7 +46,8 @@ const primerDia = new Date(fecha.getFullYear(), fecha.getMonth(), 1).getDay();
 for(let i=0; i<primerDia; i++) {
     const vacio = document.createElement('div');
     vacio.className = 'celda-dia';
-    vacio.style.backgroundColor = '#f8f9fa'; // Un gris muy suave para días de otro mes
+    // Color de fondo suave para días vacíos
+    vacio.style.backgroundColor = '#f8f9fa';
     grid.appendChild(vacio);
 }
 
@@ -33,7 +65,14 @@ for(let i=1; i<=diasEnMes; i++) {
     // Marcar "Hoy"
     if(i === fecha.getDate()) celda.classList.add('hoy');
 
-    // EVENTO 1: Clic en la celda para AGREGAR tarea
+    // Cargar las tareas automáticas
+    if (tareasPredeterminadas[i]) {
+        tareasPredeterminadas[i].forEach(tareaTexto => {
+            agregarTarea(celda, tareaTexto);
+        });
+    }
+
+    // Permitir agregar más tareas con clic
     celda.addEventListener('click', () => {
         const textoTarea = prompt(`Agregar tarea para el día ${i}:`);
         if(textoTarea) {
@@ -44,16 +83,16 @@ for(let i=1; i<=diasEnMes; i++) {
     grid.appendChild(celda);
 }
 
-// Función para crear la cajita de tarea
+// Función para crear la etiqueta de tarea
 function agregarTarea(celdaPadre, texto) {
     const tareaDiv = document.createElement('div');
     tareaDiv.className = 'tarea';
     tareaDiv.innerText = texto;
 
-    // EVENTO 2: Clic en la tarea para TACHAR (y que no pida agregar otra nueva)
+    // Clic en la tarea para tacharla
     tareaDiv.addEventListener('click', (evento) => {
-        evento.stopPropagation(); // Evita que se active el clic de la celda de fondo
-        tareaDiv.classList.toggle('completada'); // Agrega o quita la clase de tachado
+        evento.stopPropagation();
+        tareaDiv.classList.toggle('completada');
     });
 
     celdaPadre.appendChild(tareaDiv);
