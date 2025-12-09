@@ -4,9 +4,7 @@ const fecha = new Date();
 
 const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-// =========================================================================
-// TUS TAREAS (Ya cargadas)
-// =========================================================================
+// TAREAS PRECARGADAS
 const tareasPredeterminadas = {
     9: ["Practico 3"],
     10: ["PEP 1 Obstetricia"],
@@ -16,25 +14,22 @@ const tareasPredeterminadas = {
     22: ["Control Farmacología"],
     23: ["PEP 2 Embriología", "Practico 5"]
 };
-// =========================================================================
 
 mesAnio.innerText = `${nombresMeses[fecha.getMonth()]} ${fecha.getFullYear()}`;
 
 const diasEnMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
 const primerDia = new Date(fecha.getFullYear(), fecha.getMonth(), 1).getDay();
 
-// 1. Espacios vacíos
+// Espacios vacíos
 for(let i=0; i<primerDia; i++) {
     const vacio = document.createElement('div');
     vacio.className = 'celda-dia';
-    vacio.style.backgroundColor = 'transparent'; // Transparente para que se vea limpio
-    vacio.style.boxShadow = 'none'; // Sin sombra
-    vacio.style.border = 'none'; // Sin borde
-    vacio.style.cursor = 'default'; // Sin manito
+    vacio.style.opacity = '0'; // Invisible
+    vacio.style.cursor = 'default';
     grid.appendChild(vacio);
 }
 
-// 2. Días
+// Crear días
 for(let i=1; i<=diasEnMes; i++) {
     const celda = document.createElement('div');
     celda.className = 'celda-dia';
@@ -46,14 +41,14 @@ for(let i=1; i<=diasEnMes; i++) {
 
     if(i === fecha.getDate()) celda.classList.add('hoy');
 
-    // Cargar tareas automáticas
+    // Cargar tareas
     if (tareasPredeterminadas[i]) {
         tareasPredeterminadas[i].forEach(tareaTexto => {
             agregarTarea(celda, tareaTexto);
         });
     }
 
-    // Agregar nueva tarea al hacer clic en el día
+    // Agregar nueva tarea manual
     celda.addEventListener('click', () => {
         const textoTarea = prompt(`Agregar tarea para el día ${i}:`);
         if(textoTarea) {
@@ -64,27 +59,20 @@ for(let i=1; i<=diasEnMes; i++) {
     grid.appendChild(celda);
 }
 
-// =========================================================================
-// AQUÍ ESTÁ LA MAGIA DE LA NOTIFICACIÓN 👇
-// =========================================================================
+// Función mágica con notificación
 function agregarTarea(celdaPadre, texto) {
     const tareaDiv = document.createElement('div');
     tareaDiv.className = 'tarea';
     tareaDiv.innerText = texto;
 
     tareaDiv.addEventListener('click', (evento) => {
-        evento.stopPropagation(); // Evita activar el clic del día
+        evento.stopPropagation();
         
-        // Verificamos si ya estaba completada o no
         if (tareaDiv.classList.contains('completada')) {
-            // Si ya estaba lista y le dimos click, la "destachamos" (sin mensaje)
             tareaDiv.classList.remove('completada');
         } else {
-            // Si NO estaba lista, la tachamos y mandamos el mensaje
             tareaDiv.classList.add('completada');
-            
-            // LA NOTIFICACIÓN:
-            // Usamos setTimeout para que primero se vea tachada visualmente y luego salte el mensaje
+            // Notificación especial ❤️
             setTimeout(() => {
                 alert("¡Muy mien amor eres seca! ❤️");
             }, 100);
