@@ -2,17 +2,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calendario</title>
+    <title>Mi Google Calendar</title>
     <link rel="stylesheet" href="estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2 id="mes-anio"></h2>
+    <div class="calendar-container">
+        <header>
+            <h2 id="mes-anio"></h2>
+        </header>
+        
         <div class="dias-semana">
-            <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
+            <div>DOM</div><div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div>
         </div>
-        <div id="dias-grid" class="dias-grid"></div>
+
+        <div id="grid-calendario" class="grid-calendario"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
